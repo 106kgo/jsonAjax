@@ -1,3 +1,4 @@
+// points towards empty div to fill
 let animalContainer = document.getElementById("animal-info");
 // grabbing the button on the html
 let btn = document.getElementById("btn");
@@ -17,5 +18,12 @@ btn.addEventListener("click", function(){
 });
 // adding HTML the page
 function addHTML(data){
-animalContainer.insertAdjacentHTML('beforeend', 'testing 123');
+    // variable to give a empty string, this is what will fill
+    var htmlString = "";
+    // grabbing something from EACH object in the array
+    for (i = 0; i < data.length; i++) {
+        htmlString += "<p>" + data[i].name + " is a " + data[i].species + ".</p>";
+    }
+
+animalContainer.insertAdjacentHTML('beforeend', htmlString);
 }
