@@ -1,3 +1,5 @@
+// Adds page number to the end of URL
+let pageCounter = 1;
 // points towards empty div to fill
 let animalContainer = document.getElementById("animal-info");
 // grabbing the button on the html
@@ -7,7 +9,7 @@ btn.addEventListener("click", function(){
     // AJAX call getting info from another URL
     let ourRequest = new XMLHttpRequest();
     // location to URL
-    ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-1.json');
+    ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-' + pageCounter + '.json');
     // grabbing specific data from URL
     ourRequest.onload = function(){
         // Pulling data and letting computer know to read in JSON format
@@ -15,6 +17,11 @@ btn.addEventListener("click", function(){
         addHTML(ourData);
     };
     ourRequest.send();
+    // increases page number at end of URL when clicked, see "GET"
+    pageCounter++;
+    if (pageCounter > 3){
+        btn.classlist.add("hide-me");
+    }
 });
 // adding HTML the page
 function addHTML(data){
