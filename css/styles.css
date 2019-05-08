@@ -4,6 +4,6 @@ button{
     background-color: blue;
 }
 
-.hide-me{
-    visibility: hidden;
+.hide-me {
+    display: none;
 }

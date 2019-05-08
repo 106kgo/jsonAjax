@@ -20,16 +20,37 @@ btn.addEventListener("click", function(){
     // increases page number at end of URL when clicked, see "GET"
     pageCounter++;
     if (pageCounter > 3){
-        btn.classlist.add("hide-me");
+        btn.classList.add("hide-me");
     }
+    
 });
 // adding HTML the page
-function addHTML(data){
+function renderHTML(data){
     // variable to give a empty string, this is what will fill
     var htmlString = "";
     // grabbing something from EACH object in the array
     for (i = 0; i < data.length; i++) {
-        htmlString += "<p>" + data[i].name + " is a " + data[i].species + ".</p>";
+        htmlString += "<p>" + data[i].name + " is a " + data[i].species + " that likes to eat ";
+        // adds what food each species likes
+        for (ii = 0; ii < data[i].foods.like.length; ii++){
+           if (ii == 0){
+            htmlString += data[i].foods.likes[ii];
+           } else{
+            htmlString += " and " + data[i].foods.likes[ii];
+           }
+        }
+
+        htmlString += ' and dislikes ';
+        // this will add the dislikes of each animal
+        for (ii = 0; ii < data[i].foods.dislike.length; ii++){
+            if (ii == 0){
+             htmlString += data[i].foods.dislikes[ii];
+            } else{
+             htmlString += " and " + data[i].foods.dislikes[ii];
+            }
+         }
+
+        htmlString += '.</p>';
     }
 
 animalContainer.insertAdjacentHTML('beforeend', htmlString);
