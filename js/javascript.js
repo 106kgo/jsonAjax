@@ -12,10 +12,20 @@ btn.addEventListener("click", function(){
     ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-' + pageCounter + '.json');
     // grabbing specific data from URL
     ourRequest.onload = function(){
-        // Pulling data and letting computer know to read in JSON format
-        let ourData = JSON.parse(ourRequest.responseText);
-        addHTML(ourData);
+        if (ourRequest.status >= 200 && ourRequest.status < 400){
+             // Pulling data and letting computer know to read in JSON format
+            let ourData = JSON.parse(ourRequest.responseText);
+            renderHTML(ourData);
+        } else {
+            console.log("We connected to the server, but it returned an error.");
+            
+        }
     };
+    // if there is a problem with connection
+    ourRequest.onerror = function() {
+        console.log("Connection error");
+    };
+
     ourRequest.send();
     // increases page number at end of URL when clicked, see "GET"
     pageCounter++;
@@ -32,7 +42,7 @@ function renderHTML(data){
     for (i = 0; i < data.length; i++) {
         htmlString += "<p>" + data[i].name + " is a " + data[i].species + " that likes to eat ";
         // adds what food each species likes
-        for (ii = 0; ii < data[i].foods.like.length; ii++){
+        for (ii = 0; ii < data[i].foods.likes.length; ii++){
            if (ii == 0){
             htmlString += data[i].foods.likes[ii];
            } else{
@@ -42,7 +52,7 @@ function renderHTML(data){
 
         htmlString += ' and dislikes ';
         // this will add the dislikes of each animal
-        for (ii = 0; ii < data[i].foods.dislike.length; ii++){
+        for (ii = 0; ii < data[i].foods.dislikes.length; ii++){
             if (ii == 0){
              htmlString += data[i].foods.dislikes[ii];
             } else{
